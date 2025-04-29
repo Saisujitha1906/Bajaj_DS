@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: lab-report-processor
+    env: python
+    buildCommand: |
+      chmod +x setup.sh
+      ./setup.sh
+    startCommand: |
+      source .venv/bin/activate
+      python main.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.9.18"
+      - key: TESSERACT_CMD
+        value: "/usr/bin/tesseract"
+      - key: PORT
+        value: "8000"
+      - key: BIND
+        value: "0.0.0.0"
+      - key: LOG_LEVEL
+        value: "DEBUG"
+    plan: free
+    healthCheckPath: /healthz
+    autoDeploy: true 
